@@ -1,0 +1,115 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.barra{
+    display: flex;
+    flex-direction: column;
+    padding-top: 3rem;
+    align-items: center;
+    .logo-header{ // Para FireFox
+        max-width: 100%;
+        height: auto;
+        width: 30rem;
+        padding-bottom: 1rem;
+    }
+    @include m.tablet{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
+.opciones{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include m.tablet{
+        flex-direction: row;
+    }
+
+    .dark-mode-button{
+        width: 3rem;
+        margin-top: 2rem;
+       filter: invert(100%);
+
+       &:hover{
+        cursor: pointer;
+       }
+
+       @include m.tablet{
+        margin-top: 0;
+        margin-left: 2rem;
+       }
+    }
+}
+
+.navegacion{
+    display: none;
+    // transition: visibility .3s ease-in-out, opacity .3s linear;
+    @include m.tablet{
+        // transition: visibility 0s ease-in-out, opacity 0s linear;
+        display:flex;
+        align-items: center;
+        gap: 2rem;
+    }
+    a{
+        color: v.$blanco;
+        text-decoration: none;
+        font-size: 2.2rem;
+        display: block;
+        text-align: center;
+
+        @include m.tablet{
+            font-size: 1.8rem;
+        }
+        &:hover{
+            color: v.$verde;
+        }
+    }
+}
+
+.mobile-menu{
+    img{
+        width: 5rem;
+    }
+    @include m.tablet{
+        display: none;
+    }
+}
+
+.mostrar{
+    display: flex;
+    flex-direction: column;
+    @include m.tablet{
+        flex-direction: row;
+    }
+}
+
+
+// .mostrar{
+//     visibility: visible;
+//     opacity: 1;
+//     height: auto;
+// }
+// .no-mostrar{
+//     visibility: hidden;
+//     opacity: 0;
+//     height: 0;
+// }
+// .mostrar,
+// .no-mostrar{
+//     @include m.tablet{
+//         visibility: visible;
+//         opacity: 1;
+//     }
+// }
+
+// .visibilidadTemporal {
+//     a{
+//         display: none;
+//     }
+//     &::after{
+//         content: '';
+//         display: block;
+//         height: 15.84rem;
+//     }
+// }

@@ -1,0 +1,25 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.footer{
+    padding: calc(v.$separacion / 2) 0;
+    margin-bottom: 0;
+    background-color: v.$grisOscuro;
+    .contenedor-footer{
+        padding-top: calc(v.$separacion / 2);
+    }
+
+    .navegacion{
+        display: flex;
+        flex-direction: column;
+        @include m.tablet{
+            flex-direction: row;
+            gap: 2rem;
+        }
+    }
+    
+    .copyright{
+        color: v.$blanco;
+        text-align: center;
+    }
+}
