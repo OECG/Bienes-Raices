@@ -43,7 +43,7 @@ function darkMode() {
 // }
 
 // function limpiarErrores(){
-      
+    
 //     const errores = document.querySelectorAll('.alerta');
 //     // console.log(errores.length);  // Cantidad;
 //     if(errores.length !==null){
@@ -70,11 +70,11 @@ function navegacionResponsive(){
 function mostrarPassword() {
     const password = document.querySelector("#password");
     if (password.type === "password") {
-      password.type = "text";
+        password.type = "text";
     } else {
-      password.type = "password";
+        password.type = "password";
     }
-  }
+}
 
 // DARK MODE
 
@@ -87,10 +87,10 @@ function mostrarPassword() {
 //     // Añadimos el evento de click al botón de dark mode
 //     document.querySelector('.dark-mode-boton').addEventListener('click', darkChange);
 // }
- 
+
 // function darkChange() {
 //     let darkLocal = window.localStorage.getItem('dark');
- 
+
 //     if(darkLocal === null || darkLocal === 'false') {
 //         // No está inicializado darkLocal o es falso
 //         window.localStorage.setItem('dark', true);
@@ -138,7 +138,7 @@ function mostrarPassword() {
 //         }else{
 //             navegacion.classList.remove('no-mostrar');
 //         }
-       
+
 //     }
 // }
 
