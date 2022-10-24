@@ -1,19 +1,23 @@
 <?php
     require '../../includes/app.php';
+    
     use App\Propiedad;
-    
-    
-    autenticado();
+    use Intervention\Image\ImageManagerStatic as Image;
     
 
-    // BASE DE DATOS    
+
+    autenticado();
+
+    # BASE DE DATOS    
     $DB = conectarDB();
 
-    // CONSULTA PARA OBTENER LOS VENDEDORES
+    # CONSULTA PARA OBTENER LOS VENDEDORES
     $consulta = " SELECT * FROM vendedores ";
     $resultado = mysqli_query($DB,$consulta);
 
-
+    # ARREGLO CON MENSAJE DE ERRORES
+    $errores = Propiedad::getErrores();
+    
     $titulo ="";
     $precio = "";
     $descripcion = "";
@@ -22,96 +26,39 @@
     $estacionamientos = "";
     $vendedorId = "";
     
-    // ARREGLO CON MENSAJE DE ERRORES
-    $errores = [];
-
-    // EJECUA EL CODIGO DESPUES DE QUE EL USUARIO ENVIA EL FORMULARIO
+    # EJECUA EL CODIGO DESPUES DE QUE EL USUARIO ENVIA EL FORMULARIO
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        // echo'<pre>';
-        // var_dump($_POST);
-        // echo'</pre>';
-        // echo'<pre>';
-        // var_dump($_FILES);
-        // echo'</pre>';
-   
-        $titulo = mysqli_real_escape_string( $DB , $_POST["titulo"] );
-        $precio = mysqli_real_escape_string( $DB , $_POST["precio"] );
-        $descripcion = mysqli_real_escape_string( $DB , $_POST["descripcion"] );
-        $habitaciones = mysqli_real_escape_string( $DB , $_POST["habitaciones"] );
-        $wc = mysqli_real_escape_string( $DB , $_POST["wc"] );
-        $estacionamientos = mysqli_real_escape_string( $DB , $_POST["estacionamientos"] );
-        $creado = date('Y/m/d');
-        $vendedorId = mysqli_real_escape_string( $DB , $_POST["vendedorId"] );
+        $propiedad = new Propiedad($_POST);
 
-        // Asignar FILE a una Variable
-        $imagen = $_FILES['imagen'];
-
-        if(!$titulo){
-            $errores[] = "Debes añadir un título";
-        }
-        if(!$precio){
-            $errores[] = "El Precio es Obligatorio";
-        }
-        if(!$imagen['name'] || $imagen['error']){
-            $errores[] = "La Imagen es Obligatoria";
-        }
-        if( strlen($descripcion) < 50){
-            $errores[] = "La descripciín debe tener al menos 50 caracteres";
-        }
-        if(!$habitaciones){
-            $errores[] = "El Número de Habitaciones es Obligatorio";
-        }
-        if(!$wc){
-            $errores[] = "El Número de Baños es Obligatorio";
-        }
-        if(!$estacionamientos){
-            $errores[] = "El Número de lugares de Estacionamiento es Obligatorio";
-        }
-        if(!$vendedorId){
-            $errores[] = "Elige un vendedor";
+        # Generar un Nombre Unico 
+        $nombreImagen = generarNombre($_FILES['imagen']);
+  
+        # Realiza un resize a la imagen con intervention
+        # Setear la Imagen
+        if($_FILES['imagen']['tmp_name']){
+            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+            $propiedad->setImagen($nombreImagen);;
         }
 
-        // Validar por tamaño (máximo 10Mb)
-        $medida = 1000 * 10000;
-        if($imagen['size'] > $medida){
-            $errores[] = "La imagen no puede exceder los 10Mb";
-        }
+        $errores = $propiedad->validar();
     
-        // Revisar que el array de errores este vacio
+        # Revisar que el array de errores este vacio
         if(empty($errores)){
 
-            /** SUBIDA DE ARCHIVOS **/
-
-            // Crear carpetas
-            $carpetaImagenes = "../../Imagenes/";
-
-            if(!is_dir($carpetaImagenes)){
-                mkdir($carpetaImagenes);
+            # Crear la carpeta para subir imagenes
+            if(!is_dir(CARPETA_IMAGENES)){
+                mkdir(CARPETA_IMAGENES);
             }
-
-            // Extraer la extension
-            $imgParts = explode('.', $imagen['name']);           
-            $extension = "." . end($imgParts);
-            // explode : Devuelve un array, cada elemento sera la parte del texto separado por un punto
-            // count : Devuelve la cantidad de elementos del array // end : Devuelve el ultimo elemento
-
-
-            // Generar Nombre Unico
-            $nombreImagen = md5( uniqid( rand(), true)) . $extension;
             
+            # Guardar la imagen en el Servidor
+            $image->save(CARPETA_IMAGENES . $nombreImagen);
 
-            // Subir Imagen
-            move_uploaded_file($imagen['tmp_name'], $carpetaImagenes . $nombreImagen);
-  
+            # Guardar en la Base de Datos
+            $resultado = $propiedad->guardar();
 
-            // Insertar en la Base de Datos
-            $query = "INSERT INTO propiedades (titulo,precio,imagen,descripcion,habitaciones,wc,estacionamientos,creado,vendedores_id) VALUES ( '$titulo', '$precio', '$nombreImagen', '$descripcion', '$habitaciones', '$wc', '$estacionamientos','$creado', '$vendedorId')";
-            
 
-            $query_result = mysqli_query($DB,$query);
-
-            if($query_result){
+            if($resultado){
                 // Redireccionar al Usuario
                 header('location: /admin?resultado=1');
             }
@@ -128,7 +75,7 @@
 
         <?php foreach($errores as $error): ?>
         <div class="alerta rojo">
-           <?php echo $error;?>
+            <?php echo $error;?>
         </div>
         <?php endforeach; ?>
 
