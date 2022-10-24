@@ -13,6 +13,7 @@ Y presiona enter, esperan a que se instalen las dependencias en la carpeta node_
 Las dependencias no son necesarias para el funcionamiento del proyecto, pero si para su desarrollo
 
 <b>Inatalar Composer</b> 
+
 Posterior a ello instalar las dependencias escribiendo en la terminar: composer i
 
 Las dependencias son necesarias para el funcionamiento del proyecto
