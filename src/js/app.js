@@ -58,8 +58,11 @@ function darkMode() {
 function eventListeners(){
     const chexBox = document.querySelector('.input_M-pass');
     const mobileMenu = document.querySelector('.mobile-menu');  
-    chexBox.addEventListener('click',mostrarPassword) 
     mobileMenu.addEventListener('click', navegacionResponsive)
+    try {
+        chexBox.addEventListener('click',mostrarPassword) 
+    } catch (error) {}
+    
 }
 
 function navegacionResponsive(){
