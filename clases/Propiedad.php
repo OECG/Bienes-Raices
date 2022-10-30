@@ -82,7 +82,6 @@ class Propiedad {
 
         foreach($atributos as $key=>$value){
             $sanitizado[$key] = self::$DB->escape_string($value);
-            // $sanitizado[$key] = $value;
         }
 
         return $sanitizado;

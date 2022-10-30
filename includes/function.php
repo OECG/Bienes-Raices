@@ -17,7 +17,7 @@ function autenticado() : void {
     }
 }
 
-function debugear($variable,$op)
+function debuguear($variable,$op)
 {
     echo'<pre>';
     var_dump($variable);

@@ -4,12 +4,7 @@
     use App\Propiedad;
     use Intervention\Image\ImageManagerStatic as Image;
     
-
-
     autenticado();
-
-    # BASE DE DATOS    
-    $DB = conectarDB();
 
     # CONSULTA PARA OBTENER LOS VENDEDORES
     $consulta = " SELECT * FROM vendedores ";
@@ -28,7 +23,7 @@
     
     # EJECUA EL CODIGO DESPUES DE QUE EL USUARIO ENVIA EL FORMULARIO
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-
+        
         $propiedad = new Propiedad($_POST);
 
         # Generar un Nombre Unico 
