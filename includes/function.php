@@ -38,3 +38,9 @@ function generarNombre( array $imagen = []) : string
     return $nombreImagen;
 }
 
+# Escapa / sanitizar el HTML
+function s($html) : string 
+{
+    $string = htmlspecialchars($html);
+    return $string;
+}
