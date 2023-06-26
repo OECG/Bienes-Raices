@@ -6,7 +6,7 @@ class Propiedad {
 
     # Base de Datos
     protected static $DB;
-    protected static $columnaDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamientos', 'creado', 'vendedores_id'];
+    protected static $columnaDB = ['id', 'titulo', 'precio', 'imagen', 'descripcion', 'habitaciones', 'wc', 'estacionamientos', 'creado', 'vendedor_id'];
 
     # Errores
     protected static  $errores = [];
@@ -20,7 +20,7 @@ class Propiedad {
     public $wc;
     public $estacionamientos;
     public $creado;
-    public $vendedores_id;
+    public $vendedor_id;
 
     # Definir la conexion a la BD 
     public static function setDB($database){
@@ -37,7 +37,7 @@ class Propiedad {
         $this->wc = $args['wc'] ?? '';
         $this->estacionamientos = $args['estacionamientos'] ?? '';
         $this->creado = date('Y/m/d');
-        $this->vendedores_id = $args['vendedorId'] ?? '';
+        $this->vendedor_id = $args['vendedorId'] ?? '';
     }
 
     public function guardar() {
@@ -114,7 +114,7 @@ class Propiedad {
         if(!$this->estacionamientos){
             self::$errores[] = "El Número de lugares de Estacionamiento es Obligatorio";
         }
-        if(!$this->vendedores_id){
+        if(!$this->vendedor_id){
             self::$errores[] = "Elige un vendedor";
         }
         

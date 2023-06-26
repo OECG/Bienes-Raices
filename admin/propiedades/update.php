@@ -19,7 +19,7 @@
     $DB = conectarDB();
 
     // Consultar los datos de la propiedad
-    $consulta = "SELECT * FROM propiedades WHERE id = ${id}";
+    $consulta = "SELECT * FROM propiedades WHERE id = {$id}";
     $resultado = mysqli_query($DB,$consulta);
     $propiedad = mysqli_fetch_assoc($resultado);
     if(!$resultado->num_rows){
@@ -37,7 +37,7 @@
     $habitaciones = $propiedad['habitaciones'];
     $wc = $propiedad['wc'];
     $estacionamientos = $propiedad['estacionamientos'];;
-    $vendedorId = $propiedad['vendedores_id'];
+    $vendedorId = $propiedad['vendedor_id'];
     $imagenPropiedad = $propiedad['imagen'];
     
     // ARREGLO CON MENSAJE DE ERRORES
@@ -121,7 +121,7 @@
             }  
 
             // Insertar en la Base de Datos
-            $query = "UPDATE propiedades SET titulo='$titulo', precio='$precio', imagen = '$nombreImagen', descripcion='$descripcion', habitaciones = $habitaciones , wc = $wc, estacionamientos = $estacionamientos, vendedores_Id = $vendedorId WHERE id = $id";        
+            $query = "UPDATE propiedades SET titulo='$titulo', precio='$precio', imagen = '$nombreImagen', descripcion='$descripcion', habitaciones = $habitaciones , wc = $wc, estacionamientos = $estacionamientos, vendedor_Id = $vendedorId WHERE id = $id";        
 
             $query_result = mysqli_query($DB,$query);
 

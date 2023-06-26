@@ -5,8 +5,6 @@
     use Intervention\Image\ImageManagerStatic as Image;
     
     autenticado();
-
-    $propiedad = new Propiedad;
     
     # CONSULTA PARA OBTENER LOS VENDEDORES
     $consulta = " SELECT * FROM vendedores ";
