@@ -32,7 +32,7 @@
         <h2>Casas y Departamentos en Venta</h2>
         
         <?php
-            $limit = 3; 
+
             include 'includes/templates/anuncios.php';
         ?>
 

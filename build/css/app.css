@@ -924,29 +924,29 @@ h4 {
   background-color: #E08709;
 }
 
-table.propiedades {
+table.form-propiedades, table.form-vendedores {
   margin: 4rem 0 6rem 0;
   width: 100%;
   border-spacing: 0;
 }
-table.propiedades thead {
+table.form-propiedades thead, table.form-vendedores thead {
   background-color: #71B100;
 }
-table.propiedades thead th {
+table.form-propiedades thead th, table.form-vendedores thead th {
   color: #FFFFFF;
   font-size: 2rem;
   padding: 2rem;
 }
-table.propiedades tbody td {
+table.form-propiedades tbody td, table.form-vendedores tbody td {
   text-align: center;
 }
-table.propiedades tbody img {
+table.form-propiedades tbody img, table.form-vendedores tbody img {
   display: inline-block;
 }
-table.propiedades .imagen-tabla {
+table.form-propiedades .imagen-tabla, table.form-vendedores .imagen-tabla {
   width: 10rem;
 }
-table.propiedades .boton {
+table.form-propiedades .boton, table.form-vendedores .boton {
   border-radius: 1rem;
 }
 

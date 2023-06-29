@@ -2,34 +2,35 @@
     require '../../includes/app.php';
     
     use App\Propiedad;
+    use App\Vendedores;
     use Intervention\Image\ImageManagerStatic as Image;
     
     autenticado();
     
+    $propiedad = new Propiedad;
+    
     # CONSULTA PARA OBTENER LOS VENDEDORES
-    $consulta = " SELECT * FROM vendedores ";
-    $resultado = mysqli_query($DB,$consulta);
+    $vendedores = Vendedores::findAll();
 
     # ARREGLO CON MENSAJE DE ERRORES
     $errores = Propiedad::getErrores();
-        
+       
     # EJECUA EL CODIGO DESPUES DE QUE EL USUARIO ENVIA EL FORMULARIO
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
-        $propiedad = new Propiedad($_POST);
-
-        # Generar un Nombre Unico 
-        $nombreImagen = generarNombre($_FILES['imagen']);
-  
-        # Realiza un resize a la imagen con intervention
-        # Setear la Imagen
-        if($_FILES['imagen']['tmp_name']){
-            $image = Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+        $propiedad = new Propiedad($_POST['propiedad']);
+        
+        if($_FILES['propiedad']['tmp_name']['imagen']){
+            # Generar un Nombre Unico 
+            $nombreImagen = generarNombre($_FILES['propiedad']['name']);
+            # Realiza un resize a la imagen con intervention
+            $image = Image::make($_FILES['propiedad']['tmp_name']['imagen'])->fit(800,600);
+            # Setear la Imagen
             $propiedad->setImagen($nombreImagen);;
         }
 
         $errores = $propiedad->validar();
-    
+        
         # Revisar que el array de errores este vacio
         if(empty($errores)){
 
@@ -42,13 +43,7 @@
             $image->save(CARPETA_IMAGENES . $nombreImagen);
 
             # Guardar en la Base de Datos
-            $resultado = $propiedad->guardar();
-
-
-            if($resultado){
-                // Redireccionar al Usuario
-                header('location: /admin?resultado=1');
-            }
+            $propiedad->guardar();
         }
     }
 

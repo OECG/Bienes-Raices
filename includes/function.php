@@ -17,7 +17,7 @@ function autenticado() : void {
     }
 }
 
-function debuguear($variable,$op)
+function debuguear($variable,$op=true)
 {
     echo'<pre>';
     var_dump($variable);
@@ -29,7 +29,7 @@ function debuguear($variable,$op)
 
 function generarNombre( array $imagen = []) : string
 {
-    $imgParts = explode('.', $imagen['name']);  # explode : Devuelve un array, cada elemento sera la parte del texto separado por un punto           
+    $imgParts = explode('.', $imagen['imagen']);  # explode : Devuelve un array, cada elemento sera la parte del texto separado por un punto           
     $extension = "." . end($imgParts);          # count : Devuelve la cantidad de elementos del array // end : Devuelve el ultimo elemento
             
     # Generar Nombre Unico
@@ -43,4 +43,41 @@ function s($html) : string
 {
     $string = htmlspecialchars($html);
     return $string;
+}
+
+# Validar tipo de contenido
+function validarTipoContenido($tipo) {
+    $tipos = ['vendedor','propiedad'];
+
+    return in_array($tipo,$tipos);
+}
+
+# Muestra Mensajes
+function mostrarNotificaciones($codigo){
+    $mensaje = '';
+    $color = '';
+    $response = [];
+
+    switch($codigo){
+        case 1:
+            $mensaje = 'Creado Correctamente';
+            $color = 'verde';
+            break;
+        case 2:
+            $mensaje = 'Actualizado Correctamente';
+            $color = 'amarillo';
+            break;
+        case 3:
+            $mensaje = 'Eliminado Correctamente';
+            $color = 'rojo';
+            break;
+        default:
+            $mensaje = false;
+            $color = false;
+            break;
+    }
+
+    $response = ['mensaje' => $mensaje, 'color'=> $color];
+    
+    return $response;
 }

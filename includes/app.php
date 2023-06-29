@@ -5,6 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';  // Si app.php se requiere en otra 
 
 # Conectarnos a la BD
 $DB = conectarDB();
-use App\Propiedad;
 
-Propiedad::setDB($DB);
+use App\ActiveRecord;
+
+ActiveRecord::setDB($DB);
