@@ -17,3 +17,9 @@ Las dependencias no son necesarias para el funcionamiento del proyecto, pero si 
 Posterior a ello instalar las dependencias escribiendo en la terminar: composer i
 
 Las dependencias son necesarias para el funcionamiento del proyecto
+
+<b>Cambio en los estilos</b> 
+
+Si se van a realizar cambios en los estilos o con el código JS, se debe iniciar el script que compila los estilos de SASS y el JavaScript
+
+El script se activa escribiendo en la terminal: npx gulp
